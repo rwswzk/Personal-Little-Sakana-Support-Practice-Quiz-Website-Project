@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Little Sakana Support Quiz</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f7f9fc;
+      color: #333;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      text-align: center;
+      padding: 20px;
+      background-color: #ff6f61;
+      color: #fff;
+    }
+
+    #quizContainer {
+      max-width: 900px;
+      margin: 30px auto;
+      padding: 25px;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+    }
+
+    #toggleButtons {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-bottom: 25px;
+    }
+
+    .toggle-btn {
+      padding: 10px 25px;
+      font-size: 16px;
+      cursor: pointer;
+      border-radius: 8px;
+      border: none;
+      background-color: #ffede9;
+      transition: all 0.2s;
+    }
+
+    .toggle-btn:hover {
+      background-color: #ffccc1;
+    }
+
+    .toggle-btn.active {
+      background-color: #ff6f61;
+      color: white;
+      font-weight: bold;
+    }
+
+    #question-type {
+      text-align: center;
+      font-weight: bold;
+      color: #ff6f61;
+      margin-bottom: 5px;
+    }
+
+    #question {
+      text-align: center;
+      font-size: 1.2rem;
+      margin-bottom: 15px;
+    }
+
+    #answers {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+
+    .answer-btn {
+      padding: 12px;
+      border-radius: 8px;
+      border: none;
+      background-color: #ffede9;
+      cursor: pointer;
+      font-size: 16px;
+      transition: all 0.2s;
+    }
+
+    .answer-btn:hover:enabled {
+      background-color: #ffccc1;
+    }
+
+    .answer-btn:disabled {
+      opacity: 0.7;
+      cursor: default;
+    }
+
+    #feedback {
+      text-align: center;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    #tip {
+      text-align: center;
+      font-style: italic;
+      color: #555;
+      margin-bottom: 15px;
+    }
+
+    #nextBtn, #restartBtn {
+      display: block;
+      margin: 15px auto 0 auto;
+      padding: 10px 25px;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      background-color: #ff6f61;
+      color: white;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    #nextBtn:hover, #restartBtn:hover {
+      background-color: #e65b50;
+    }
+
+    #progress-bar {
+      width: 100%;
+      height: 12px;
+      background: #eee;
+      border-radius: 6px;
+      margin-bottom: 15px;
+      overflow: hidden;
+    }
+
+    #progress-bar-fill {
+      height: 100%;
+      width: 0;
+      background-color: #ff6f61;
+      border-radius: 6px;
+      transition: width 0.3s;
+    }
+
+    #result {
+      max-width: 900px;
+      margin: 30px auto;
+      padding: 25px;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+      display: none;
+    }
+
+    .resultItem {
+      border-top: 1px solid #ddd;
+      padding: 10px 0;
+    }
+
+    footer {
+      text-align: center;
+      font-size: 0.9rem;
+      color: #777;
+      margin: 40px 0 20px 0;
+    }
+  </style>
+</head>
+<body>
+  <header>
+  <h1 style="font-size: 2.5rem; margin-bottom: 5px; color: black">🍣 Little Sakana Support Practice Quiz 🍣</h1>
+  <p style="font-size: 1rem; color: black">Test your support knowledge</p>
+  <p>Made by Sean Walla | Last Updated: October 6, 2025</p>
+ 
+  <!-- Sushi floating emojis -->
+  <div class="floating-sushi">🍣</div>
+  <div class="floating-sushi">🍤</div>
+  <div class="floating-sushi">🍙</div>
+  <div class="floating-sushi">🍱</div>
+
+
+</header>
+
+<div id="sideNotes">
+  <h3>💡 Quick Tips</h3>
+  <ol>
+    <li>Lock in twin</li>
+    <li>If you want to refresh your questions, click "Cocktail Test" or "Support Test"</li>
+    <li>Scroll down at the end to see all your answers and results</li>
+    <li>Remember everything so Jenna doesn't crash out on you!</li>
+  </ol>
+</div>
+
+
+  <div id="quizContainer">
+    <div id="toggleButtons">
+      <button id="cocktailBtn" class="toggle-btn active">Cocktail Test</button>
+      <button id="supportBtn" class="toggle-btn">Support Test</button>
+    </div>
+
+    <div id="progress-bar">
+      <div id="progress-bar-fill"></div>
+    </div>
+
+    <div id="progress-text"></div>
+    <div id="question-type"></div>
+    <div id="question"></div>
+    <div id="answers"></div>
+    <div id="feedback"></div>
+    <div id="tip"></div>
+    
+    <button id="prevBtn" style="display:none;">Previous</button>
+    <button id="nextBtn">Next</button>
+    <button id="restartBtn">Restart Quiz</button>
+  </div>
+
+  <h2>🍣 Quiz Results 🍣</h2>
+
+<button id="nextBtn">Next 🍤</button>
+<button id="restartBtn">Restart Quiz 🍙</button>
+
+
+  <div id="result">
+    <h2>Quiz Results</h2>
+    <div id="resultList"></div>
+  </div>
+
+  <footer>
+    &copy; 2025 Little Sakana Support Quiz
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
